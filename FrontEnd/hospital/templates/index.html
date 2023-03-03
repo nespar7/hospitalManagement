@@ -1,0 +1,38 @@
+{% extends 'home.html' %} {% load static %} {% block content %}
+
+<head>
+    <style media="screen">
+        .jumbotron {
+            margin-top: 0px;
+            margin-bottom: 0px;
+            background-image: url('https://picsum.photos/1200/600');
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .jumbotron h5,
+        h3 {
+            text-align: center;
+        }
+
+        .alert {
+            margin: 0px;
+        }
+
+        .glow {
+            font-size: 50px;
+            color: 50px;
+            text-align: center;
+            -webkit-animation: glow 1s ease-in-out infinite alternate;
+            -moz-animation: glow 1s ease-in-out infinite alternate;
+            animation: glow 1s ease-in-out infinite alternate;
+        }
+    </style>
+
+    <div class="jumbotron" style="margin-bottom: 0px; margin-top: 0px;">
+        <br />
+        <h5 class="display-3 glow">Hospital Management System</h5>
+    </div>
+</head>
+
+{% endblock content %}

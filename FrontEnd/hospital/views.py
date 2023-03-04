@@ -1,12 +1,9 @@
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
-from django import forms
-from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
-from django.urls import reverse_lazy 
-
-class CustomLoginForm(AuthenticationForm):
-    type = forms.ChoiceField(choices=[('admin', 'Admin'), ('doctor', 'Doctor'), ('fdo', 'Front Desk'), ('deo', 'Data Entry')])
+from django.urls import reverse_lazy
+from .forms import CustomLoginForm, AdminCreateUserForm 
+from django.views import View
 
 class CustomLoginView(LoginView):
     template_name = 'login.html'
@@ -21,8 +18,15 @@ class CustomLoginView(LoginView):
 def home_view(request):
     return render(request, "index.html")
 
-
-def afterlogin_view(request):
-    if request.method == "POST":
-        print(request.POST['username'])
-    return redirect('home')
+class createUserView(View):
+    def get(self, request):
+        form = AdminCreateUserForm()
+        return render(request, 'admin_create_user.html', {'form': form})
+    
+    def post(self, request):
+        form = AdminCreateUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('administrator')
+        return render(request, 'admin_create_user.html', {'form': form})
+    
